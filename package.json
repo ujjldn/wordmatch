@@ -1,0 +1,16 @@
+{
+  "name": "wordmatch-app",
+  "version": "1.0.0",
+  "description": "Word Match Game",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "echo \"Building web assets...\""
+  },
+  "keywords": [
+    "capacitor",
+    "android"
+  ],
+  "author": "",
+  "license": "ISC"
+}

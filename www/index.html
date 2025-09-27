@@ -1,0 +1,69 @@
+<!--
+ * @Author: ujjldn ujjldn0515@163.com
+ * @Date: 2025-09-27 09:02:18
+ * @LastEditors: ujjldn ujjldn0515@163.com
+ * @LastEditTime: 2025-09-27 10:25:54
+ * @FilePath: \WordMatch\index.html
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+-->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>单词消消乐</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 首页选择界面 -->
+        <div id="homeScreen" class="screen">
+            <h1>单词消消乐</h1>
+            <div class="menu">
+                <select id="unitSelector"></select>
+                
+                <div class="batch-settings">
+                    <label for="batchSizeInput">每批单词数:</label>
+                    <select id="batchSizeInput">
+                        <option value="4">4</option>
+                        <option value="6">6</option>
+                        <option value="10" selected>手机10</option>
+                        <option value="16">16</option>
+                        <option value="20">20</option>
+                    </select>
+                </div>
+                
+                <button id="startBtn">开始游戏</button>
+                <button id="mistakesBtn">查看错误单词</button>
+            </div>
+        </div>
+        
+        <!-- 游戏界面 -->
+        <div id="gameScreen" class="screen hidden">
+            <div class="game-header">
+                <div class="score">得分: <span id="score">0</span></div>
+                <div class="progress">批次: <span id="currentBatch">1</span> / <span id="totalBatches">1</span></div>
+                <button id="backBtn">返回</button>
+            </div>
+            
+            <div class="game-content">
+                <div id="cardsContainer" class="cards-container"></div>
+            </div>
+        </div>
+        
+        <!-- 错误单词界面 -->
+        <div id="mistakesScreen" class="screen hidden">
+            <div class="mistakes-header">
+                <h2>错误单词</h2>
+                <div class="mistakes-actions">
+                    <button id="clearAllMistakesBtn">清除全部</button>
+                </div>
+            </div>
+            <div id="mistakesContainer"></div>
+            <button id="backFromMistakesBtn">返回</button>
+        </div>
+    </div>
+    
+    <script type="module" src="main.js"></script>
+</body>
+</html>

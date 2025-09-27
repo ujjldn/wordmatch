@@ -1,0 +1,400 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.screen {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.hidden {
+    display: none;
+}
+
+/* 首页样式 */
+#homeScreen {
+    justify-content: center;
+    align-items: center;
+}
+
+#homeScreen h1 {
+    margin-bottom: 30px;
+    color: #333;
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 80%;
+    max-width: 300px;
+}
+
+.menu select, .menu button {
+    padding: 15px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+.menu select {
+    background-color: white;
+}
+
+.menu button {
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.menu button:hover {
+    background-color: #45a049;
+}
+
+.batch-settings {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.batch-settings label {
+    font-weight: bold;
+}
+
+.batch-settings input {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.mode-selection {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.mode-selection label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+/* 游戏界面样式 */
+#gameScreen {
+    flex-direction: column;
+}
+
+.game-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    z-index: 10;
+}
+
+.game-header .score, .game-header .progress {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.game-header button {
+    padding: 8px 15px;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.game-content {
+    flex: 1;
+    overflow: hidden;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    align-content: center;
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.word-card, .meaning-card {
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-align: center;
+    font-size: 12px;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    word-break: break-word;
+    line-height: 1.3;
+    visibility: visible;
+}
+
+.word-card {
+    background-color: #2196F3; /* Primary color */
+    color: white;
+    border: 2px solid #0b7dda;
+}
+
+.meaning-card {
+    background-color: #4CAF50; /* Success color */
+    color: white;
+    border: 2px solid #3d8b40;
+}
+
+.word-card:hover, .meaning-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.word-card.selected, .meaning-card.selected {
+    background-color: #ffeb3b;
+    color: #333;
+    border-color: #ffc107;
+    transform: scale(1.1);
+}
+
+.word-card.matched, .meaning-card.matched {
+    visibility: hidden;
+}
+
+/* 匹配正确特效 */
+.correct-match {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(76, 175, 80, 0.9);
+    color: white;
+    padding: 20px 40px;
+    border-radius: 10px;
+    font-size: 24px;
+    font-weight: bold;
+    z-index: 1000;
+    animation: fadeInOut 1s ease-in-out;
+}
+
+/* 匹配错误特效 */
+.wrong-match {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(244, 67, 54, 0.9);
+    color: white;
+    padding: 20px 40px;
+    border-radius: 10px;
+    font-size: 24px;
+    font-weight: bold;
+    z-index: 1000;
+    animation: fadeInOut 1s ease-in-out;
+}
+
+@keyframes fadeInOut {
+    0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+    50% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+    100% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+}
+
+.word-card.mistake, .meaning-card.mistake {
+    background-color: #f44336;
+    border-color: #d32f2f;
+    color: white;
+    animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+    100% { transform: translateX(0); }
+}
+
+.game-footer {
+    padding: 10px;
+    background-color: #fff;
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: center;
+}
+
+.game-footer button {
+    padding: 10px 20px;
+    background-color: #FF9800;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+/* 错误单词界面样式 */
+#mistakesScreen {
+    padding: 20px;
+    align-items: center;
+}
+
+.mistakes-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 600px;
+    margin-bottom: 20px;
+}
+
+.mistakes-header h2 {
+    margin: 0;
+}
+
+.mistakes-actions button {
+    padding: 8px 15px;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#mistakesContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    max-width: 600px;
+    flex: 1;
+    overflow-y: auto;
+}
+
+.mistake-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background-color: #ffebee;
+    border: 1px solid #f44336;
+    border-radius: 5px;
+}
+
+.mistake-content {
+    flex: 1;
+}
+
+.mistake-word, .mistake-meaning {
+    font-weight: bold;
+}
+
+.mistake-separator {
+    margin: 0 10px;
+    color: #666;
+}
+
+.mistake-actions button {
+    padding: 5px 10px;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+#mistakesScreen > button {
+    margin-top: 20px;
+    padding: 12px 24px;
+    background-color: #2196F3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.completion-message {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #4CAF50;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    font-size: 24px;
+    font-weight: bold;
+    box-shadow: 0 0 20px rgba(0,0,0,0.3);
+    z-index: 1000;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .word-card, .meaning-card {
+        width: 80px;
+        height: 80px;
+        font-size: 10px;
+        padding: 5px;
+    }
+    
+    .game-header {
+        padding: 8px 15px;
+    }
+    
+    .game-header .score, .game-header .progress {
+        font-size: 16px;
+    }
+    
+    .menu {
+        width: 90%;
+    }
+}
+
+@media (max-width: 480px) {
+    .word-card, .meaning-card {
+        width: 70px;
+        height: 70px;
+        font-size: 9px;
+    }
+    
+    .mistakes-header {
+        flex-direction: column;
+        gap: 10px;
+        align-items: stretch;
+    }
+}
